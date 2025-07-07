@@ -1,35 +1,37 @@
 import { useState } from 'react'
-import { Box, TextField, Button, Typography } from '@mui/material'
 
-export default function LocalizadorForm() {
+type Props = {
+  onCodigoValido: () => void;
+};
+
+export default function LocalizadorForm({ onCodigoValido }: Props) {
   const [localizador, setLocalizador] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Localizador:', localizador)
-    // Aquí puedes despachar una acción de Redux si lo deseas
-  }
+    e.preventDefault();
+    if (localizador.trim() !== '') {
+      console.log('Localizador:', localizador);
+      onCodigoValido(); // Notificar al padre que el código es válido
+    }
+  };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4, px: 2 }}
-    >
-      <Typography variant="h6" align="center">
-        Ingresa tu localizador
-      </Typography>
-      <TextField
-        label="Localizador"
-        variant="outlined"
-        fullWidth
-        value={localizador}
-        onChange={(e) => setLocalizador(e.target.value)}
-        inputProps={{ maxLength: 6 }}
-      />
-      <Button type="submit" variant="contained" fullWidth>
-        Continuar
-      </Button>
-    </Box>
+    <form onSubmit={handleSubmit} className="p-4 space-y-4">
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text">Código del localizador</span>
+        </label>
+        <input
+          type="text"
+          className="input input-bordered"
+          placeholder="Ej: ABC123"
+          value={localizador}
+          onChange={(e) => setLocalizador(e.target.value)}
+        />
+      </div>
+      <button className="btn btn-primary w-full" type="submit">
+        Buscar
+      </button>
+    </form>
   )
 }
