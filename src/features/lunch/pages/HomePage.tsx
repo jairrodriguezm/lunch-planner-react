@@ -1,7 +1,13 @@
+import LocalizadorForm from '../components/LocalizadorForm'
+import { Container, Typography } from '@mui/material'
+
 export default function HomePage() {
   return (
-    <main style={{ padding: '1rem' }}>
-      <h1>Lunch Planner</h1>
-    </main>
+    <Container maxWidth="sm">
+      <Typography variant="h5" align="center" mt={4}>
+        Lunch Planner
+      </Typography>
+      <LocalizadorForm />
+    </Container>
   )
 }
